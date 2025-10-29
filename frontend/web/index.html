@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="frontend">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>frontend</title>
+  <link rel="manifest" href="manifest.json">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-messaging.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyDucjCR_QAtWQuyHnGlQsGFUpKR6EMobzA",
+  authDomain: "savings-management-system.firebaseapp.com",
+  projectId: "savings-management-system",
+  storageBucket: "savings-management-system.appspot.com",
+  messagingSenderId: "1042133409461",
+  appId: "1:1042133409461:web:35a0174a86b804e53de8fc",
+  measurementId: "G-FGE4DV4RK8"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
+  
+    let registration;
+    try {
+      registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+      console.log('[fcm] SW registered:', registration?.scope);
+    } catch (e) {
+      console.error('[fcm] SW registration failed:', e);
+    }
+  
+    onMessage(messaging, (payload) => {
+      console.log('[fcm] onMessage payload:', payload);
+      const n = payload?.notification || {};
+      if (Notification.permission === 'granted') {
+        new Notification(n.title || 'Notification', { body: n.body || '', icon: '/favicon.png' });
+      }
+    });
+  
+    // Expose a helper for local notifications from Flutter
+    window.__notify = async (title, body) => {
+      try {
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+          new Notification(title || 'Notice', { body: body || '', icon: '/favicon.png' });
+          console.log('[notify] shown:', title, body);
+          return true;
+        } else {
+          console.warn('[notify] permission:', perm);
+          return false;
+        }
+      } catch (e) {
+        console.error('[notify] error:', e);
+        return false;
+      }
+    };
+
+    try {
+      const perm = await Notification.requestPermission();
+      console.log('[fcm] permission:', perm);
+      if (perm === 'granted') {
+        const token = await getToken(messaging, {
+          vapidKey: "BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI",
+          serviceWorkerRegistration: registration
+        });
+        console.log('FCM Web Token:', token);
+        if (!token) {
+          console.warn('[fcm] empty token');
+        }
+      }
+    } catch (e) {
+      console.error('[fcm] getToken error:', e);
+    }
+  </script>
+  
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

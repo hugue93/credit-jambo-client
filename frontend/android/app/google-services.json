@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042133409461",
+    "project_id": "savings-management-system",
+    "storage_bucket": "savings-management-system.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042133409461:android:9fd6dee44336513e3de8fc",
+        "android_client_info": {
+          "package_name": "com.dev.savings"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYbyo46hLGvHd-JH8OiH3cAvAtxWxiIEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
