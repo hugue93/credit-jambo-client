@@ -27,11 +27,6 @@ cd backend && copy .env.example .env && npm install && npm run dev
 
 API Docs (if enabled in backend): http://localhost:3000/docs
 
-## Firebase (client)
-- Get Web Push (VAPID) key: Firebase Console → Project settings → Cloud Messaging → Web configuration.
-- Web config is included in `web/index.html`. Replace with your own if needed.
- - For testing, you can use: `FCM_VAPID_KEY=VITE_VAPID_KEY
-
 ## Run (Web)
 Fixed port 5173 and pass API/VAPID:
 
