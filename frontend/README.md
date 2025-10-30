@@ -81,7 +81,7 @@ flutter run -d <device-id> --dart-define=API_BASE_URL=http://localhost:3000 --da
 - Firestore indexes may be needed (create via Console when prompted).
 
 ## Database access
-- Firestore access is restricted. If you need database access for testing, send your Google account email to the maintainer so permissions can be granted in Firebase/IAM.
+- Firestore access is restricted. If you need database access for testing, send your Google account email to the Developer so permissions can be granted in Firebase/IAM.
 
 ## Troubleshooting
 - 401 Unauthorized: token expired → re-login.
