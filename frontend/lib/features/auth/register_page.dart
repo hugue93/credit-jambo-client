@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../services/device_id.dart';
 import 'auth_repository.dart';
 
@@ -45,7 +46,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         deviceId: deviceId,
       );
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/pending');
+        context.go('/pending');
       }
     } catch (e) {
       String message = e.toString();

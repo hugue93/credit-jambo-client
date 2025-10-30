@@ -4,13 +4,13 @@ Customer-facing Flutter app for registration, login, device verification, balanc
 
 ## Requirements
 - Flutter SDK 3.x
-- Node.js backend running (see `../backend-node`)
+- Node.js backend running (see `/backend`)
 - Firebase project (Firestore + Cloud Messaging)
 - Android Studio for Android emulator/USB device
 - iOS builds require macOS + Xcode (not available on Windows)
 
 ## Backend environment (.env)
-Create `../backend-node/.env`:
+Create `backend/.env`:
 
 PORT=3000
 CORS_ORIGINS=http://localhost:5173,http://localhost:5174
@@ -18,11 +18,12 @@ JWT_SECRET=replace-with-strong-secret
 PASSWORD_PEPPER=replace-with-strong-pepper
 FIREBASE_PROJECT_ID=your-project-id
 FIREBASE_CLIENT_EMAIL=service-account@your-project-id.iam.gserviceaccount.com
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"VITE_API_BASE_URL=http://localhost:3000
+VITE_VAPID_KEY=YOUR_PUBLIC_VAPID_KEY
 
 Start backend:
 
-cd ../backend-node
+cd backend
 npm install
 npm run dev
 
@@ -31,33 +32,33 @@ API Docs (if enabled in backend): http://localhost:3000/docs
 ## Firebase (client)
 - Get Web Push (VAPID) key: Firebase Console → Project settings → Cloud Messaging → Web configuration.
 - Web config is included in `web/index.html`. Replace with your own if needed.
- - For testing, you can use: `FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI`
+ - For testing, you can use: `FCM_VAPID_KEY=VITE_VAPID_KEY
 
 ## Run (Web)
 Fixed port 5173 and pass API/VAPID:
 
-flutter run -d chrome --web-hostname=localhost --web-port=5173 --dart-define=API_BASE_URL=http://localhost:3000 --dart-define=FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI
+flutter run -d chrome --web-hostname=localhost --web-port=5173 --dart-define=API_BASE_URL=http://localhost:3000 --dart-define=FCM_VAPID_KEY=VITE_VAPID_KEY
 
 If you change ports, update `CORS_ORIGINS`.
 
 ## Run (Android Emulator / Device)
 - Android Emulator (host loopback):
 
-flutter run -d emulator-5554 --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI
+flutter run -d emulator-5554 --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=FCM_VAPID_KEY=VITE_VAPID_KEY
 
 - Genymotion:
 
-flutter run -d <genymotion-id> --dart-define=API_BASE_URL=http://10.0.3.2:3000 --dart-define=FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI
+flutter run -d <genymotion-id> --dart-define=API_BASE_URL=http://10.0.3.2:3000 --dart-define=FCM_VAPID_KEY=VITE_VAPID_KEY
 
 - Real device (LAN IP):
 
 flutter devices
-flutter run -d <device-id> --dart-define=API_BASE_URL=http://<your-lan-ip>:3000 --dart-define=FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI
+flutter run -d <device-id> --dart-define=API_BASE_URL=http://<your-lan-ip>:3000 --dart-define=FCM_VAPID_KEY=VITE_VAPID_KEY
 
 - Real device via USB reverse (use localhost):
 
 adb reverse tcp:3000 tcp:3000
-flutter run -d <device-id> --dart-define=API_BASE_URL=http://localhost:3000 --dart-define=FCM_VAPID_KEY=BLoS0RALMyEZ0CDq40Kme2QG6UVHdkyX9Jy5hqwA0GivRx0z0Rr4D6g-o_01vyIITwEs2eRt9IxLpXLtjyI03OI
+flutter run -d <device-id> --dart-define=API_BASE_URL=http://localhost:3000 --dart-define=FCM_VAPID_KEY=VITE_VAPID_KEY
 
 ## Features
 - Auth (register/login), SHA-512 + pepper, JWT + refresh
