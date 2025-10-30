@@ -22,4 +22,4 @@ Frontend Real Android device using USB:>
   
 Frontend Android Emulator (host loopback):>
 * cd frontend
-*flutter run -d emulator-5554 --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=FCM_VAPID_KEY=YOUR_VITE_VAPID_KEY
+* flutter run -d emulator-5554 --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=FCM_VAPID_KEY=YOUR_VITE_VAPID_KEY
