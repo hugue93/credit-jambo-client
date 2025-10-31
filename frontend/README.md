@@ -27,7 +27,7 @@
 * copy .env.example .env
 * npm install && npm run dev
 
-## * API Docs (if enabled in backend): http://localhost:3000/docs
+## API Docs (if enabled in backend): http://localhost:3000/docs
 
 ## Run (Web)
 Fixed port 5173 and pass API/VAPID:
